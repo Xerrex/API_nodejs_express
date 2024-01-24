@@ -1,0 +1,15 @@
+{
+  "name": "03tut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Kagai",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^3.3.1",
+    "nodemon": "^3.0.3"
+  }
+}

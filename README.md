@@ -6,6 +6,7 @@
 
 ## Resources
 - [Node.js v18.19.0 documentation](https://nodejs.org/docs/latest-v18.x/api/index.html)
+- [npm Docs](https://docs.npmjs.com/)
 
 ## Bookmark
 * https://youtu.be/f2EqECiTBL8?t=2246

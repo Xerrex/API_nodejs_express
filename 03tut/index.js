@@ -1,11 +1,21 @@
-console.log("Npm packages \n\n");
+const logEvents = require("./logEvents");
+const EventEmitter = require("events");
 
-const { format } = require("date-fns");
-const { v4:uuid4 } = require("uuid"); //Import add
+class MyEmitter extends EventEmitter {};
 
-const currentDate = new Date();
-const dateFormat = "dd-MM-yyyy\tHH:mm:ss"
 
-console.log(format(currentDate, dateFormat));
 
-console.log(`\nUUID: ${uuid4()}`);
+const myEmitter = new MyEmitter(); // Initialize the object
+
+// Add Listener for log event
+
+myEmitter.on("log", (msg)=>logEvents(msg));
+
+
+// setTimeout(()=>{
+//   myEmitter.emit("log", "Emitted log event"); //emit event
+// }, 2000);
+
+// setInterval(()=>{
+//   myEmitter.emit("log", "Emitted log event"); //emit event
+// }, 5000);

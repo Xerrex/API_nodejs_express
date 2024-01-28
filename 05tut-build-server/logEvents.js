@@ -8,15 +8,20 @@ const fsPromises = require("fs").promises;
 const path = require("path");
 
 
-const logEvents = async (message)=>{
+const logTimeFormat = ()=>{
   const currentDate = new Date();
-  const dateFormat = "dd-MM-yyyy\tHH:mm:ss";
+  const dateFormat = "dd-MM-yyyy HH:mm:ss";
   const dateTime = `${format(currentDate, dateFormat)}`;
-  const logItem = `${dateTime}\t${uuid4()}\t${message}\n`;
+  return dateTime;
+}
+
+const logEvents = async (message, LogFileName="event_logs.txt")=>{
+  const dateTime = logTimeFormat();
+  const logItem = `${dateTime}  ${uuid4()}\t${message}\n`;
   console.log(logItem);
 
   const logDirPath = path.join(__dirname, "logs");
-  const logFilePath = path.join(logDirPath, "event_logs.txt");
+  const logFilePath = path.join(logDirPath, LogFileName);
 
 
   try {
@@ -29,4 +34,4 @@ const logEvents = async (message)=>{
   }
 }
 
-module.exports = logEvents;
+module.exports = {logEvents, logTimeFormat};

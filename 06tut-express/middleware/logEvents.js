@@ -15,12 +15,13 @@ const logTimeFormat = ()=>{
   return dateTime;
 }
 
+
 const logEvents = async (message, LogFileName="event_logs.txt")=>{
   const dateTime = logTimeFormat();
   const logItem = `${dateTime}  ${uuid4()}\t${message}\n`;
-  console.log(logItem);
+  // console.log(logItem);
 
-  const logDirPath = path.join(__dirname, "logs");
+  const logDirPath = path.join(__dirname, "..","logs");
   const logFilePath = path.join(logDirPath, LogFileName);
 
 
@@ -34,4 +35,15 @@ const logEvents = async (message, LogFileName="event_logs.txt")=>{
   }
 }
 
-module.exports = {logEvents, logTimeFormat};
+const requestLogger = (req, res, next)=>{
+  const logMessage =  `${req.method}\t${req.headers.origin}\t${req.url}`;
+  logEvents(logMessage, "request-logs.txt");
+
+  const consoleLogMessage = `${logTimeFormat()}\t${logMessage}`;
+  console.log(consoleLogMessage);
+
+  next();
+}
+
+
+module.exports = {logEvents, logTimeFormat, requestLogger};

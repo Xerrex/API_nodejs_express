@@ -1,11 +1,21 @@
 const path = require("path");
 const express = require("express");
+const cors =  require("cors");
+const { requestLogger } = require("./middleware/logEvents");
 
 const app = express();
 const PORT = process.env.PORT || 3500;
 
-// consoleLogMessage = `${logTimeFormat()}\t${req.method}\t${req.url}`;
-// console.log(consoleLogMessage);
+
+app.use(requestLogger);
+app.use(cors()); // Cross origin resource sharing
+
+app.use(express.urlencoded({extended: false})); // middleware to handle form data
+app.use(express.json()); // json middleware
+
+const staticFilePath = path.join(__dirname, "/public");
+app.use(express.static(staticFilePath));
+
 
 app.get("^/$|/index(.html)?", (req, res)=>{
   // res.send("Hello World");

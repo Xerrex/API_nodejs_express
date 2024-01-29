@@ -1,0 +1,20 @@
+{
+  "name": "06tut-express",
+  "version": "1.0.0",
+  "description": "express learning",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Alex Kagai",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^3.3.1",
+    "express": "^4.18.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

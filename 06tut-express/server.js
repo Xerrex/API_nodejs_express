@@ -2,13 +2,32 @@ const path = require("path");
 const express = require("express");
 const cors =  require("cors");
 const { requestLogger } = require("./middleware/logEvents");
+const errorHandler  = require("./middleware/errorHandler");
 
 const app = express();
 const PORT = process.env.PORT || 3500;
+const whitelist = [
+  "http://www.example.com",
+  "http://127.0.0.1:5500",
+  "http://127.0.0.1:3500",
+  "http://127.0.0.1:3000"
+]
+
+const corsOptions = {
+  origin: (origin, callback)=>{
+    if(whitelist.indexOf(origin) !== -1 || !origin){
+      callback(null, true)
+    }else{
+      callback(new Error("Not Allowed by CORS"))
+    }
+  },
+
+  optionsSuccessStatus: 200
+}
 
 
 app.use(requestLogger);
-app.use(cors()); // Cross origin resource sharing
+app.use(cors(corsOptions)); // Cross origin resource sharing
 
 app.use(express.urlencoded({extended: false})); // middleware to handle form data
 app.use(express.json()); // json middleware
@@ -64,11 +83,22 @@ const three = (req, res, next)=>{
 app.get("/chain(.html)?", [one, two, three]);
 
 
-app.get("/*", (req, res)=>{
+app.all("*", (req, res)=>{
+  res.status(404)
+
+  if(req.accepts("html")){
+    const pageFilePath = path.join(__dirname, "views", "404.html");
+    res.status(404).sendFile(pageFilePath);
+  } else if(req.accepts("json")){
+    res.json({error: "404 Not Found"});
+  }else {
+    res.type("txt").send("404 Not Found")
+  }
   
-  const pageFilePath = path.join(__dirname, "views", "404.html");
-  res.status(404).sendFile(pageFilePath);
 })
+
+
+app.use(errorHandler);
 
 
 const serverRunningMsg = `Server Running on port: ${PORT}`;

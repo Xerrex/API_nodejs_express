@@ -1,5 +1,3 @@
-console.log("Log events \n\n");
-
 const { format } = require("date-fns");
 const { v4:uuid4 } = require("uuid"); // Import as defining
 

@@ -9,7 +9,7 @@
 - [npm Docs](https://docs.npmjs.com/)
 
 ## Bookmark
-* https://youtu.be/Zh7psmf1KAA?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&t=799
+* https://youtu.be/Dco1gzVZKVk?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&t=10
 
 
 ## Credits

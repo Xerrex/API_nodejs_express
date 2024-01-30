@@ -39,6 +39,7 @@ app.use("/subdir", express.static(staticFilePath));
 
 app.use("/", require("./routes/root")); // root routes
 app.use("/subdir", require("./routes/subdir")); // Subdir routes
+app.use("/employees", require("./routes/api/employees"))
 
 
 

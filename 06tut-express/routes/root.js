@@ -13,14 +13,13 @@ router.get("^/$|/index(.html)?", (req, res)=>{
 
 
 router.get("/new-page(.html)?", (req, res)=>{
-  const viewFilePath = path.join(viewsDir, "new-page.html");
-  res.sendFile(viewFilePath);
+  res.redirect(301, "/index");
 })
 
 
 router.get("/old-page(.html)?", (req, res)=>{
   
-  res.redirect(301, "/new-page");
+  res.redirect(301, "/index");
 })
 
 

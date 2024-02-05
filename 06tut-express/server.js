@@ -21,6 +21,8 @@ app.use(express.static(staticFilePath));
 
 
 app.use("/", require("./routes/root")); // root routes
+app.use("/register", require("./routes/register")); // register routes
+app.use("/auth", require("./routes/auth")); // auth routes
 app.use("/employees", require("./routes/api/employees"))
 
 

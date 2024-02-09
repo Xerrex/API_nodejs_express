@@ -1,6 +1,13 @@
 const path = require("path");
 const fspromises = require("fs").promises;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
 
 const usersDB = {
@@ -47,13 +54,55 @@ const handleSignIn = async(req, res)=>{
   const match = await bcrypt.compare(password, foundUser.password);
   if (match){
     // NOTE: Create
+    const accessToken = jwt.sign(
+      {"username": foundUser.username},
+      ACCESS_TOKEN_SECRET,
+      {expiresIn: "60s"}
+    );
+
+    const refreshToken = jwt.sign(
+      {"username": foundUser.username},
+      REFRESH_TOKEN_SECRET,
+      {expiresIn: "1d"}
+    );
+
+    const currentUser = {...foundUser, refreshToken};
+    const otherUsers = usersDB.users.filter(user=> user.username !== foundUser.username);
+    usersDB.setUsers([...otherUsers, currentUser]);
+    await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
+    
+    res.cookie("jwt", refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
     res.json({
       "message": "Successful login",
-      "success": `User ${username} is logged in!`
+      "success": `User ${username} is logged in!`,
+      accessToken
     })
+
   } else{
     res.sendStatus(401);
   }
 }
 
-module.exports = { handleSignUp, handleSignIn };
+
+const handleRefreshToken = (req, res) =>{
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(401);
+  
+  const refreshToken = cookies.jwt;
+  console.log(refreshToken);
+  
+  const foundUser = usersDB.users.find(user => user.refreshToken === refreshToken);
+  if (!foundUser) return res.sendStatus(403); //Forbidden 
+
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded)=>{
+    if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
+
+    const payload =  { "username": decoded.username }
+    const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
+
+    res.json({accessToken});
+  });
+}
+
+
+module.exports = { handleSignUp, handleSignIn, handleRefreshToken};

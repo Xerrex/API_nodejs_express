@@ -1,8 +1,10 @@
 const path = require("path");
 const express = require("express");
 const cors =  require("cors");
+const cookieParser = require("cookie-parser");
 const { requestLogger } = require("./middleware/logEvents");
 const errorHandler  = require("./middleware/errorHandler");
+const verifyJWT = require("./middleware/verifyJWT");
 const corsOptions = require("./config/corsOptions");
 
 const app = express();
@@ -16,14 +18,17 @@ app.use(cors(corsOptions)); // Cross origin resource sharing
 app.use(express.urlencoded({extended: false})); // middleware to handle form data
 app.use(express.json()); // json middleware
 
+app.use(cookieParser()); //middleware for cookies
+
 const staticFilePath = path.join(__dirname, "/public");
 app.use(express.static(staticFilePath));
 
 
 app.use("/", require("./routes/root")); // root routes
-app.use("/register", require("./routes/register")); // register routes
 app.use("/auth", require("./routes/auth")); // auth routes
-app.use("/employees", require("./routes/api/employees"))
+
+app.use(verifyJWT);
+app.use("/employees", require("./routes/api/employees"));
 
 
 app.all("*", (req, res)=>{
@@ -38,7 +43,7 @@ app.all("*", (req, res)=>{
     res.type("txt").send("404 Not Found")
   }
   
-})
+});
 
 
 app.use(errorHandler);

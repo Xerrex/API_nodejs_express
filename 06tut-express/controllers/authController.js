@@ -54,29 +54,16 @@ const handleSignIn = async(req, res)=>{
   const match = await bcrypt.compare(password, foundUser.password);
   if (match){
     // NOTE: Create
-    const accessToken = jwt.sign(
-      {"username": foundUser.username},
-      ACCESS_TOKEN_SECRET,
-      {expiresIn: "60s"}
-    );
+    const accessToken = jwt.sign({"username": foundUser.username}, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
+    const refreshToken = jwt.sign({"username": foundUser.username}, REFRESH_TOKEN_SECRET, {expiresIn: "1d"});
 
-    const refreshToken = jwt.sign(
-      {"username": foundUser.username},
-      REFRESH_TOKEN_SECRET,
-      {expiresIn: "1d"}
-    );
-
-    const currentUser = {...foundUser, refreshToken};
     const otherUsers = usersDB.users.filter(user=> user.username !== foundUser.username);
+    const currentUser = {...foundUser, refreshToken};
     usersDB.setUsers([...otherUsers, currentUser]);
     await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
     
     res.cookie("jwt", refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-    res.json({
-      "message": "Successful login",
-      "success": `User ${username} is logged in!`,
-      accessToken
-    })
+    res.json({accessToken})
 
   } else{
     res.sendStatus(401);
@@ -86,7 +73,7 @@ const handleSignIn = async(req, res)=>{
 
 const handleRefreshToken = (req, res) =>{
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(401);
+  if (!cookies?.jwt) return res.status(401);
   
   const refreshToken = cookies.jwt;
   console.log(refreshToken);
@@ -102,6 +89,13 @@ const handleRefreshToken = (req, res) =>{
 
     res.json({accessToken});
   });
+}
+
+
+const handleSignOut = (req, res)=>{
+  // NOTE: Delete access token in the frontend.
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204);
 }
 
 

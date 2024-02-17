@@ -62,7 +62,7 @@ const handleSignIn = async(req, res)=>{
     usersDB.setUsers([...otherUsers, currentUser]);
     await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
     
-    res.cookie("jwt", refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+    res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000});
     res.json({accessToken})
 
   } else{
@@ -73,7 +73,7 @@ const handleSignIn = async(req, res)=>{
 
 const handleRefreshToken = (req, res) =>{
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.status(401);
+  if (!cookies?.jwt) return res.sendStatus(401);
   
   const refreshToken = cookies.jwt;
   console.log(refreshToken);
@@ -92,11 +92,28 @@ const handleRefreshToken = (req, res) =>{
 }
 
 
-const handleSignOut = (req, res)=>{
+const handleSignOut = async (req, res)=>{
   // NOTE: Delete access token in the frontend.
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
+
+  const refreshToken = cookies.jwt;
+  console.log(refreshToken);
+  
+  const foundUser = usersDB.users.find(user => user.refreshToken === refreshToken);
+  if (!foundUser) {
+    res.clearCookie("jwt", {httpOnly: true})
+    return res.sendStatus(403); //Forbidden
+  }
+
+  const otherUsers = usersDB.users.filter(user => user.refreshToken !== foundUser.refreshToken);
+  const currentUser = {...foundUser, refreshToken: ""};
+  usersDB.setUsers([...otherUsers, currentUser]);
+  await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
+
+  res.clearCookie("jwt", {httpOnly: true, sameSite: "None", secure: true}); // NOTE: Secure:true -only serves on https
+  res.sendStatus(204);
 }
 
 
-module.exports = { handleSignUp, handleSignIn, handleRefreshToken};
+module.exports = { handleSignUp, handleSignIn, handleRefreshToken, handleSignOut};

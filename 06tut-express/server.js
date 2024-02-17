@@ -4,6 +4,7 @@ const cors =  require("cors");
 const cookieParser = require("cookie-parser");
 const { requestLogger } = require("./middleware/logEvents");
 const errorHandler  = require("./middleware/errorHandler");
+const credentials = require("./middleware/credentials");
 const verifyJWT = require("./middleware/verifyJWT");
 const corsOptions = require("./config/corsOptions");
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3500;
 
 
 app.use(requestLogger);
+app.use(credentials);
 app.use(cors(corsOptions)); // Cross origin resource sharing
 
 app.use(express.urlencoded({extended: false})); // middleware to handle form data

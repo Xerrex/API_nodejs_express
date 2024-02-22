@@ -28,7 +28,12 @@ const handleSignUp = async (req, res)=>{
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = {"username":username, "password":hashedPassword}
+    const newUser = {
+      "username":username, 
+      "roles":{"User": 2001}, 
+      "password":hashedPassword
+    }
+
     usersDB.setUsers([...usersDB.users, newUser])
 
 
@@ -53,8 +58,18 @@ const handleSignIn = async(req, res)=>{
 
   const match = await bcrypt.compare(password, foundUser.password);
   if (match){
-    // NOTE: Create
-    const accessToken = jwt.sign({"username": foundUser.username}, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
+    const roles = Object.values(foundUser.roles);
+
+    
+    // NOTE: Create tokens
+    const accessTokenPayload = {
+      "UserInfo":{
+        "username": foundUser.username,
+        "roles": roles
+      }
+    }
+
+    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
     const refreshToken = jwt.sign({"username": foundUser.username}, REFRESH_TOKEN_SECRET, {expiresIn: "1d"});
 
     const otherUsers = usersDB.users.filter(user=> user.username !== foundUser.username);
@@ -84,8 +99,15 @@ const handleRefreshToken = (req, res) =>{
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded)=>{
     if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
 
-    const payload =  { "username": decoded.username }
-    const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
+    const roles = Object.values(foundUser.roles);
+    // NOTE: Create tokens
+    const accessTokenPayload = {
+      "UserInfo":{
+        "username": foundUser.username,
+        "roles": roles
+      }
+    }
+    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
 
     res.json({accessToken});
   });

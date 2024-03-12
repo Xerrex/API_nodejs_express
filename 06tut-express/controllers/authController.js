@@ -77,6 +77,7 @@ const handleSignIn = async(req, res)=>{
     usersDB.setUsers([...otherUsers, currentUser]);
     await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
     
+    // NOTE: Remove secure: true when working in dev environment
     res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000});
     res.json({accessToken})
 

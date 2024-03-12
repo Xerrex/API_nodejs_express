@@ -1,7 +1,29 @@
 [
     {
+        "username": "Alex Editor",
+        "roles": {
+            "User": 2001,
+            "Editor": 1984
+        },
+        "password": "$2b$10$k1LKn0MEjW3aFQwLdRwaSOpmlvPnqOdP5TsavAc/5fUWriokPDXCG",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXggRWRpdG9yIiwiaWF0IjoxNzEwMjM3NjM0LCJleHAiOjE3MTAzMjQwMzR9.8hbPkNOvTki_GiBasS2HzH2aAMcEg8ixVhJWsIzMZEA"
+    },
+    {
         "username": "Alex Dev",
+        "roles": {
+            "User": 2001,
+            "Editor": 1984
+        },
         "password": "$2b$10$i2mElxj/30eCCMpotICvCusCyEBGeTGjsyl3qlLwQYWQUMYdTNOJy",
-        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXggRGV2IiwiaWF0IjoxNzA4MTU2MDkyLCJleHAiOjE3MDgyNDI0OTJ9.3Ka4IYWgQdkq4uOZgd8Q4SMvEPhp-hs8hSWmDoKVyLs"
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXggRGV2IiwiaWF0IjoxNzEwMjQwMjUyLCJleHAiOjE3MTAzMjY2NTJ9.uhMp5MB17oU67OJuX_LJMhmGsobLn83YgPTt-uco31M"
+    },
+    {
+        "username": "Alex Admin",
+        "roles": {
+            "User": 2001,
+            "Admin": 5150
+        },
+        "password": "$2b$10$70RehQjTbTH7bJOTOCjawuP5/wZjPWaVaLcuDyHvFZ.H1958gA5YS",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJpYXQiOjE3MTAyNDA0MjIsImV4cCI6MTcxMDMyNjgyMn0.jRMIr224f6OcByQ36jdBBQPQkhMlj-6ZuziFqVlgVU8"
     }
 ]

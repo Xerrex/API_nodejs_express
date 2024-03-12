@@ -1,0 +1,261 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "LearningExpress",
+    "dateExported": "2024-03-12T10:54:55.855Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "03ed8989-450f-452b-b98f-adb2e6fdc01f",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignUp Dev",
+            "url": "http://localhost:3500/auth/signup",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2024-02-02T11:30:33.214Z",
+            "modified": "2024-03-12T10:02:34.180Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Dev\",\n  \"password\": \"Devpassword\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "2fc8e350-ea3e-4a8b-8b2f-9deb9d4dcb43",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignUp Editor",
+            "url": "http://localhost:3500/auth/signup",
+            "method": "POST",
+            "sortNum": 7500,
+            "created": "2024-03-12T09:58:44.357Z",
+            "modified": "2024-03-12T09:59:16.019Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Editor\",\n  \"password\": \"Editorpassword\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "47522732-cdf7-4a3f-a3e8-176ba27d0b14",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignUp Admin",
+            "url": "http://localhost:3500/auth/signup",
+            "method": "POST",
+            "sortNum": 8750,
+            "created": "2024-03-12T09:56:06.511Z",
+            "modified": "2024-03-12T09:56:06.511Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Admin\",\n  \"password\": \"Adminpassword\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "ec81ada5-814a-4475-b739-ecb9ef8921ea",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignIn Dev",
+            "url": "http://localhost:3500/auth/signin",
+            "method": "POST",
+            "sortNum": 9375,
+            "created": "2024-02-05T08:29:38.151Z",
+            "modified": "2024-02-16T18:36:01.201Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Dev\",\n  \"password\": \"Devpassword\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4e4a35f9-f696-4f66-aa0c-d2869a534864",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignIn  Editor",
+            "url": "http://localhost:3500/auth/signin",
+            "method": "POST",
+            "sortNum": 9531.3,
+            "created": "2024-03-12T09:59:34.772Z",
+            "modified": "2024-03-12T10:00:00.251Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Editor\",\n  \"password\": \"Editorpassword\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "5f39eef8-cea2-4823-89f8-d6d6db55ca20",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "SignIn Admin",
+            "url": "http://localhost:3500/auth/signin",
+            "method": "POST",
+            "sortNum": 9687.5,
+            "created": "2024-03-12T09:55:05.707Z",
+            "modified": "2024-03-12T09:55:56.048Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex Admin\",\n  \"password\": \"Adminpassword\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "7b3ca3a2-84b3-4e64-801a-5574396be79e",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "Refresh",
+            "url": "http://localhost:3500/auth/refresh",
+            "method": "GET",
+            "sortNum": 9843.8,
+            "created": "2024-02-09T08:41:28.808Z",
+            "modified": "2024-03-12T10:44:32.803Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyNDAyNTIsImV4cCI6MTcxMDI0MDMxMn0._gSlQwiqKTHcttTm5GGE6GsUNAhUbCC7CGEOtAC4XBM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "243bd764-56af-4424-9a01-06b073d02b55",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "signout",
+            "url": "http://localhost:3500/auth/signout",
+            "method": "GET",
+            "sortNum": 9921.9,
+            "created": "2024-02-17T06:33:24.524Z",
+            "modified": "2024-02-17T06:34:17.219Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e83d351b-1db2-4561-94cc-df9362cf1796",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "GetEmployess",
+            "url": "http://localhost:3500/employees",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-01-30T10:15:12.488Z",
+            "modified": "2024-03-12T10:06:10.676Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyMzc5MzMsImV4cCI6MTcxMDIzNzk5M30.bxw_MBv9AtNLu92RH8PRsm9I69P1rPqMIXnY3IM1sJk"
+            },
+            "tests": []
+        },
+        {
+            "_id": "4ea422ed-1b4a-42e4-9d9e-20276ac52882",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "GetEmployee",
+            "url": "http://localhost:3500/employees/2",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2024-01-30T10:20:53.667Z",
+            "modified": "2024-03-12T10:44:45.045Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyNDAyNTIsImV4cCI6MTcxMDI0MDMxMn0._gSlQwiqKTHcttTm5GGE6GsUNAhUbCC7CGEOtAC4XBM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "65b41ac5-6372-4748-8af6-0079a1577c43",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "AddEmployee Dev",
+            "url": "http://localhost:3500/employees",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-30T10:13:42.528Z",
+            "modified": "2024-03-12T10:47:22.593Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"firstname\": \"Alex\",\n    \"lastname\": \"Dev\"\n  }",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyNDAyNTIsImV4cCI6MTcxMDI0MDMxMn0._gSlQwiqKTHcttTm5GGE6GsUNAhUbCC7CGEOtAC4XBM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "bdd607f0-670c-4b47-a6c6-e3113ac8e8e1",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "deleteEmployee",
+            "url": "http://localhost:3500/employees",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-01-30T10:19:36.681Z",
+            "modified": "2024-01-31T09:13:00.881Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3b69e60a-3187-468f-9d11-bd6901d39507",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "UpdateEmployees",
+            "url": "http://localhost:3500/employees",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-01-30T10:17:31.031Z",
+            "modified": "2024-01-31T09:12:33.119Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"2\",\n  \"firstname\": \"Alex4\",\n  \"lastname\": \"Dev2\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

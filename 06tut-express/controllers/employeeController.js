@@ -1,16 +1,22 @@
-const data = {
+const path = require("path");
+const fspromises = require("fs").promises;
+
+const employeesDB = {
   employees: require("../model/employees_data.json"),
-  setEmployees: function(data){this.employees = data}
+  setEmployees: function(data){this.employees = data},
+
+  storageFile: path.join(__dirname, "..", "model", "employees_data.json"),
+  saveToFile: function(){ fspromises.writeFile(this.storageFile, JSON.stringify(this.employees));}
 };
 
 
 const getAllEmployees = (req, res)=>{
-  res.json(data.employees);
+  res.json(employeesDB.employees);
 }
 
 const getEmployee = (req, res)=>{
   const employeeID =  parseInt(req.params.id);
-  const employee =  data.employees.find(emp => emp.id === employeeID);
+  const employee =  employeesDB.employees.find(emp => emp.id === employeeID);
 
   if(!employee){
     return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
@@ -29,18 +35,19 @@ const createEmployee = (req, res)=>{
   }
 
   const newEmployee = {
-    id: data.employees[data.employees.length -1].id +1 || 1,
+    id: employeesDB.employees[employeesDB.employees.length -1]?.id +1 || 1,
     firstname: firstname,
     lastname: lastname
   }
 
-  data.setEmployees([...data.employees, newEmployee]);
-  res.status(201).json(data.employees);
+  employeesDB.setEmployees([...employeesDB.employees, newEmployee]);
+  employeesDB.saveToFile()
+  res.status(201).json(employeesDB.employees);
 }
 
 const updateEmployee = (req, res)=>{
   const employeeID =  parseInt(req.body.id);
-  const employee =  data.employees.find(emp => emp.id=== employeeID);
+  const employee =  employeesDB.employees.find(emp => emp.id=== employeeID);
 
   if(!employee){
     return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
@@ -52,26 +59,29 @@ const updateEmployee = (req, res)=>{
   if (firstname) employee.firstname = firstname
   if (lastname) employee.lastname = lastname
 
-  const filteredEmployees = data.employees.filter(emp => emp.id!==employeeID); // filter out employee
+  const filteredEmployees = employeesDB.employees.filter(emp => emp.id!==employeeID); // filter out employee
   const allEmployees = [...filteredEmployees, employee]; // add back employee
 
   const sortedEmployees = allEmployees.sort((a,b) => a.id > b.id ? 1 : a.id < b.id ? -1: 0);
-  data.setEmployees(sortedEmployees);
-  res.status(200).json(data.employees);
+  employeesDB.setEmployees(sortedEmployees);
+  employeesDB.saveToFile()
+
+  res.status(200).json(employeesDB.employees);
 
 }
 
 
 const deleteEmployee = (req, res)=>{
   const employeeID =  parseInt(req.body.id);
-  const employee =  data.employees.find(emp => emp.id=== employeeID);
+  const employee =  employeesDB.employees.find(emp => emp.id=== employeeID);
 
   if(!employee){
     return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
   }
 
   const filteredEmployees = data.employees.filter(emp => emp.id!==employeeID); // filter out employee
-  data.setEmployees(filteredEmployees);
+  employeesDB.setEmployees(filteredEmployees);
+  employeesDB.saveToFile()
   res.status(200).json(data.employees);
 }
 

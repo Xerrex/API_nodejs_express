@@ -16,8 +16,7 @@ require("crypto").randomBytes(64).toString("hex")
 - [npm Docs](https://docs.npmjs.com/)
 
 ## Bookmark
-* https://youtu.be/fUWkVxCv4IQ?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&t=968
-* Prev repo: https://github.com/gitdagray/express_user_roles
+* https://youtu.be/jZ-dzj6ut54?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&t=3
 
 
 ## Credits

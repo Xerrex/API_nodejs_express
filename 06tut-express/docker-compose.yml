@@ -8,6 +8,7 @@ services:
       - 27017:27017
     volumes:
       - ./db_data:/data/db
+    command: [--auth]
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongoroot
       MONGO_INITDB_ROOT_PASSWORD: mongorootpassword

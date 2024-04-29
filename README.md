@@ -1,21 +1,20 @@
 # Node Snack
 * Repo for my learning nodejs
 
-## Notes
-- Learnt exporting and Importing
+## Tools & Resources
+- [Node.js v18.19.0 documentation](https://nodejs.org/docs/latest-v18.x/api/index.html)
+- [npm Docs](https://docs.npmjs.com/)
+- [mongoose](https://mongoosejs.com/)
 
-## Generate token secrets
+
+## Notes
+### Generate token secrets
 ```js
 node
 
 require("crypto").randomBytes(64).toString("hex")
 ```
 
-## Resources
-- [Node.js v18.19.0 documentation](https://nodejs.org/docs/latest-v18.x/api/index.html)
-- [npm Docs](https://docs.npmjs.com/)
-
-## Notes
 ### File Database
 ```js
 const path = require("path");
@@ -42,6 +41,16 @@ const newUser = {
 usersDB.setUsers([...usersDB.users, newUser])
 
 await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
+
+
+// Update User
+  const foundUserUserName = "Alex Dev"
+  const refreshToken = "sasasas"
+  const otherUsers = usersDB.users.filter(user=> user.username !== foundUserUserName);
+
+  const currentUser = {...foundUser, refreshToken};
+  usersDB.setUsers([...otherUsers, currentUser]);
+  await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
 ```
 
 ## Bookmark

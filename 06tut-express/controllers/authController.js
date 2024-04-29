@@ -38,10 +38,12 @@ const handleSignUp = async (req, res)=>{
 }
 
 
-const handleSignIn = async(req, res)=>{
+const handleSignIn = async (req, res)=>{
   const {username, password } = req.body;
   if (!username || !password) return res.status(400).json({"message": "username and password are required"});
-  const foundUser = usersDB.users.find(user=> user.username === username);
+
+  // const foundUser = usersDB.users.find(user=> user.username === username);
+  const foundUser =  await User.findOne({username: username}).exec();
 
   if(!foundUser) return res.status(401).json({"message": "Unauthorized"})
 
@@ -61,11 +63,11 @@ const handleSignIn = async(req, res)=>{
     const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
     const refreshToken = jwt.sign({"username": foundUser.username}, REFRESH_TOKEN_SECRET, {expiresIn: "1d"});
 
-    const otherUsers = usersDB.users.filter(user=> user.username !== foundUser.username);
-    const currentUser = {...foundUser, refreshToken};
-    usersDB.setUsers([...otherUsers, currentUser]);
-    await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
-    
+    // Update user's refreshToken
+    foundUser.refreshToken = refreshToken;
+    await foundUser.save();
+
+
     // NOTE: Remove secure: true when working in dev environment
     res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000});
     res.json({accessToken})
@@ -76,14 +78,15 @@ const handleSignIn = async(req, res)=>{
 }
 
 
-const handleRefreshToken = (req, res) =>{
+const handleRefreshToken = async (req, res) =>{
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   
   const refreshToken = cookies.jwt;
   console.log(refreshToken);
   
-  const foundUser = usersDB.users.find(user => user.refreshToken === refreshToken);
+  const foundUser = await User.findOne({username: username}).exec();
+
   if (!foundUser) return res.sendStatus(403); //Forbidden 
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded)=>{
@@ -112,16 +115,16 @@ const handleSignOut = async (req, res)=>{
   const refreshToken = cookies.jwt;
   console.log(refreshToken);
   
-  const foundUser = usersDB.users.find(user => user.refreshToken === refreshToken);
+  const foundUser = await User.findOne({username: username}).exec();
+
   if (!foundUser) {
     res.clearCookie("jwt", {httpOnly: true})
     return res.sendStatus(403); //Forbidden
   }
-
-  const otherUsers = usersDB.users.filter(user => user.refreshToken !== foundUser.refreshToken);
-  const currentUser = {...foundUser, refreshToken: ""};
-  usersDB.setUsers([...otherUsers, currentUser]);
-  await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
+  
+  // Update user's refreshToken
+  foundUser.refreshToken = "";
+  await foundUser.save();
 
   res.clearCookie("jwt", {httpOnly: true, sameSite: "None", secure: true}); // NOTE: Secure:true -only serves on https
   res.sendStatus(204);

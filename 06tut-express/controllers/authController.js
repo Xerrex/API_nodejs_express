@@ -1,8 +1,8 @@
-const path = require("path");
-const fspromises = require("fs").promises;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const User = require("../model/User")
+
 
 dotenv.config();
 
@@ -10,36 +10,25 @@ const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
 
 
-const usersDB = {
-  users: require("../model/users.json"),
-  setUsers: function(data){this.users = data},
-  storageFile: path.join(__dirname, "..", "model", "users.json")
-}
-
-
 const handleSignUp = async (req, res)=>{
   const {username, password } = req.body;
   if (!username || !password) return res.status(400).json({"message": "username and password are required"});
 
-  const duplicates = usersDB.users.find(user=> user.username === username);
+  const duplicates = await User.findOne({username: username}).exec();
+
   if (duplicates) return res.status(409).json({"message": `username "${username}" is already taken`});
 
   try {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = {
-      "username":username, 
-      "roles":{"User": 2001}, 
+    // Create and store new user
+    const createdUser = await User.create({
+      "username": username,
       "password":hashedPassword
-    }
+    });
 
-    usersDB.setUsers([...usersDB.users, newUser])
-
-
-    await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
-
-    console.log(usersDB.users);
+    console.log(createdUser);
     res.status(201).json({ "message":`User "${username}" was registered successfully` })
     
   } catch (error) {

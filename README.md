@@ -24,6 +24,7 @@ const usersDB = {
   users: require("../model/users.json"),
   setUsers: function(data){this.users = data},
   storageFile: path.join(__dirname, "..", "model", "users.json")
+  saveToFile: function(){ fspromises.writeFile(this.storageFile, JSON.stringify(this.users));}
 }
 
 // find a user
@@ -39,8 +40,7 @@ const newUser = {
 }
 
 usersDB.setUsers([...usersDB.users, newUser])
-
-await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
+await usersDB.saveToFile();
 
 
 // Update User
@@ -54,7 +54,7 @@ await fspromises.writeFile(usersDB.storageFile, JSON.stringify(usersDB.users));
 ```
 
 ## Bookmark
-* https://www.youtube.com/watch?v=AWlLhRQJvtw&list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&index=15
+* https://youtu.be/AWlLhRQJvtw?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw&t=1236
 
 ## Credits
 * [Video](https://www.youtube.com/watch?v=f2EqECiTBL8&t=4s)

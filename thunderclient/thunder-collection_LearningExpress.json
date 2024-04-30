@@ -1,8 +1,9 @@
 {
-    "client": "Thunder Client",
+    "clientName": "Thunder Client",
     "collectionName": "LearningExpress",
-    "dateExported": "2024-03-12T10:54:55.855Z",
-    "version": "1.1",
+    "collectionId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+    "dateExported": "2024-04-30T14:17:26.989Z",
+    "version": "1.2",
     "folders": [],
     "requests": [
         {
@@ -113,16 +114,13 @@
             "method": "POST",
             "sortNum": 9687.5,
             "created": "2024-03-12T09:55:05.707Z",
-            "modified": "2024-03-12T09:55:56.048Z",
+            "modified": "2024-04-30T13:38:14.400Z",
             "headers": [],
-            "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"username\": \"Alex Admin\",\n  \"password\": \"Adminpassword\"\n}",
                 "form": []
-            },
-            "reqType": "post",
-            "tests": []
+            }
         },
         {
             "_id": "7b3ca3a2-84b3-4e64-801a-5574396be79e",
@@ -166,34 +164,36 @@
             "method": "GET",
             "sortNum": 10000,
             "created": "2024-01-30T10:15:12.488Z",
-            "modified": "2024-03-12T10:06:10.676Z",
+            "modified": "2024-04-30T13:41:46.510Z",
             "headers": [],
-            "params": [],
-            "reqType": "get",
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyMzc5MzMsImV4cCI6MTcxMDIzNzk5M30.bxw_MBv9AtNLu92RH8PRsm9I69P1rPqMIXnY3IM1sJk"
-            },
-            "tests": []
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsMTk4NCw1MTUwXX0sImlhdCI6MTcxNDQ4NDQ2OCwiZXhwIjoxNzE0NDg0NTI4fQ.8opAcvc8e9JoD6mZaowWrdRKAMmxnJ3g1tzZc1SAHhs"
+            }
         },
         {
             "_id": "4ea422ed-1b4a-42e4-9d9e-20276ac52882",
             "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
             "containerId": "",
             "name": "GetEmployee",
-            "url": "http://localhost:3500/employees/2",
+            "url": "http://localhost:3500/employees/66308d73220f640870663ab1",
             "method": "GET",
             "sortNum": 15000,
             "created": "2024-01-30T10:20:53.667Z",
-            "modified": "2024-03-12T10:44:45.045Z",
+            "modified": "2024-04-30T13:38:29.947Z",
             "headers": [],
-            "params": [],
-            "reqType": "get",
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyNDAyNTIsImV4cCI6MTcxMDI0MDMxMn0._gSlQwiqKTHcttTm5GGE6GsUNAhUbCC7CGEOtAC4XBM"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsMTk4NCw1MTUwXX0sImlhdCI6MTcxNDQ4NDI5NCwiZXhwIjoxNzE0NDg0MzU0fQ.hDOipfhlNiDKInTXP5r_KExXpURyG88kdmEW-9XmPok"
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "contains",
+                    "value": ""
+                }
+            ]
         },
         {
             "_id": "65b41ac5-6372-4748-8af6-0079a1577c43",
@@ -204,18 +204,39 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-01-30T10:13:42.528Z",
-            "modified": "2024-03-12T10:47:22.593Z",
+            "modified": "2024-04-30T06:19:31.873Z",
             "headers": [],
-            "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n    \"firstname\": \"Alex\",\n    \"lastname\": \"Dev\"\n  }",
                 "form": []
             },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsMTk4NCw1MTUwXX0sImlhdCI6MTcxNDQ1NzkyMywiZXhwIjoxNzE0NDU3OTgzfQ.nXvmjd30kFgeVCoazaeBVDBlittR4Skb1MENCoRsqwM"
+            }
+        },
+        {
+            "_id": "12168b75-88f4-4f1d-b5ae-0c80bdcf893e",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "AddEmployee  Editor",
+            "url": "http://localhost:3500/employees",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-03-15T11:38:12.889Z",
+            "modified": "2024-03-15T12:30:58.775Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstname\": \"Alex\",\n  \"lastname\": \"Editor\"\n}",
+                "form": []
+            },
             "reqType": "post",
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRGV2Iiwicm9sZXMiOlsyMDAxLDE5ODQsNTE1MF19LCJpYXQiOjE3MTAyNDAyNTIsImV4cCI6MTcxMDI0MDMxMn0._gSlQwiqKTHcttTm5GGE6GsUNAhUbCC7CGEOtAC4XBM"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsNTE1MF19LCJpYXQiOjE3MTA1MDMzMjAsImV4cCI6MTcxMDUwMzM4MH0.JYx5a1s7LDBC8zVyJ44gRWCl_BUfp4eATv9ybhD_uig"
             },
             "tests": []
         },
@@ -228,34 +249,63 @@
             "method": "DELETE",
             "sortNum": 40000,
             "created": "2024-01-30T10:19:36.681Z",
-            "modified": "2024-01-31T09:13:00.881Z",
+            "modified": "2024-04-30T14:05:30.753Z",
             "headers": [],
-            "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\": 1\n}",
+                "raw": "{\"id\":\"66308d73220f640870663ab1\"}",
                 "form": []
             },
-            "tests": []
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsbnVsbCw1MTUwXX0sImlhdCI6MTcxNDQ4NTg0OCwiZXhwIjoxNzE0NDg1OTA4fQ.aUMbombKqrVonrYeGnRhUO7bDeaaFPvGff82O3pUAYc"
+            }
         },
         {
             "_id": "3b69e60a-3187-468f-9d11-bd6901d39507",
             "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
             "containerId": "",
-            "name": "UpdateEmployees",
+            "name": "UpdateEmployee Dev",
             "url": "http://localhost:3500/employees",
             "method": "PUT",
             "sortNum": 50000,
             "created": "2024-01-30T10:17:31.031Z",
-            "modified": "2024-01-31T09:12:33.119Z",
+            "modified": "2024-04-30T13:41:24.846Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"66308d73220f640870663ab1\",\n  \"firstname\": \"Alex\",\n  \"lastname\": \"DevUpdated\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggQWRtaW4iLCJyb2xlcyI6WzIwMDEsMTk4NCw1MTUwXX0sImlhdCI6MTcxNDQ4NDQ2OCwiZXhwIjoxNzE0NDg0NTI4fQ.8opAcvc8e9JoD6mZaowWrdRKAMmxnJ3g1tzZc1SAHhs"
+            }
+        },
+        {
+            "_id": "346b6ee9-1309-41be-9b00-4b491491ed9e",
+            "colId": "9a5e98d1-769d-440b-b1f7-12124d7d3fb6",
+            "containerId": "",
+            "name": "UpdateEmployee Editor",
+            "url": "http://localhost:3500/employees",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-03-15T12:05:46.464Z",
+            "modified": "2024-03-15T12:31:38.489Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\": \"2\",\n  \"firstname\": \"Alex4\",\n  \"lastname\": \"Dev2\"\n}",
+                "raw": "{\n  \"id\": 1,\n  \"firstname\": \"Alex\",\n  \"lastname\": \"EditorUpdated\"\n}",
                 "form": []
+            },
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJ1c2VybmFtZSI6IkFsZXggRWRpdG9yIiwicm9sZXMiOlsyMDAxLDE5ODRdfSwiaWF0IjoxNzEwNTA1ODgzLCJleHAiOjE3MTA1MDU5NDN9.gI1M4NIMilJ_YcknqOHSOnJtCUYdZRROieT80BQGCTo"
             },
             "tests": []
         }
-    ]
+    ],
+    "ref": "wEL3zC0GowiK37ncaTn8DIwLo9cseDrQH7ZVfBXVtUgg1Fkh77OPuDDAAk44r42sBXql9zgQGb5s_7t1PP2MLg"
 }

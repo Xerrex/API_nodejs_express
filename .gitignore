@@ -1,7 +1,9 @@
 **/node_modules/**
+
 **/logs/*
+**/db_data/
+
 .env
 
 cert
-
-**/db_data/
+Full_Codes

@@ -100,7 +100,7 @@ const handleRefreshToken = async (req, res) =>{
         "roles": roles
       }
     }
-    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
+    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "1d"});
 
     res.json({accessToken});
   });

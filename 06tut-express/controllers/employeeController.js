@@ -1,88 +1,83 @@
-const path = require("path");
-const fspromises = require("fs").promises;
-
-const employeesDB = {
-  employees: require("../model/employees_data.json"),
-  setEmployees: function(data){this.employees = data},
-
-  storageFile: path.join(__dirname, "..", "model", "employees_data.json"),
-  saveToFile: function(){ fspromises.writeFile(this.storageFile, JSON.stringify(this.employees));}
-};
+const Employee = require("../model/Employee");
 
 
-const getAllEmployees = (req, res)=>{
-  res.json(employeesDB.employees);
+const getAllEmployees = async (req, res)=>{
+  const employees = await Employee.find();
+  if(!employees) return res.status(204).json({"message": "No employees were found."});
+
+  res.json(employees);
 }
 
-const getEmployee = (req, res)=>{
-  const employeeID =  parseInt(req.params.id);
-  const employee =  employeesDB.employees.find(emp => emp.id === employeeID);
+
+const getEmployee = async (req, res)=>{
+  if(!req?.params?.id) return res.status(400).json({"message": "Employee ID is required."});
+
+  const employeeID =  req.params.id;
+  const employee =  await Employee.findOne({_id: employeeID}).exec();
 
   if(!employee){
-    return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
+    return res.status(400).json({"message": `Employee with ${employeeID} was not found.`});
   }
 
   res.status(200).json(employee);
 }
 
-const createEmployee = (req, res)=>{
+
+const createEmployee = async (req, res)=>{
 
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
 
   if (!firstname || !lastname){
-    return res.status(400).json({"message": "firstname and lastname are required"})
+    return res.status(400).json({"message": "firstname and lastname are required."})
   }
 
-  const newEmployee = {
-    id: employeesDB.employees[employeesDB.employees.length -1]?.id +1 || 1,
-    firstname: firstname,
-    lastname: lastname
-  }
+  try{
+    const newEmployee = await Employee.create({firstname, lastname});
+    res.status(201).json(newEmployee);
 
-  employeesDB.setEmployees([...employeesDB.employees, newEmployee]);
-  employeesDB.saveToFile()
-  res.status(201).json(employeesDB.employees);
+  } catch(error){
+    console.log(error);
+  }
 }
 
-const updateEmployee = (req, res)=>{
-  const employeeID =  parseInt(req.body.id);
-  const employee =  employeesDB.employees.find(emp => emp.id=== employeeID);
+
+const updateEmployee = async (req, res)=>{
+  if(!req?.body?.id) return res.status(400).json({"message": "ID is required."});
+
+  const employeeID =  req.body.id
+  const employee =  await Employee.findOne({_id: employeeID}).exec();
 
   if(!employee){
-    return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
+    return res.status(204).json({"message": `No employee with ${employeeID} found.`});
   }
   
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
+  const firstname = req.body?.firstname;
+  const lastname = req.body?.lastname;
 
   if (firstname) employee.firstname = firstname
   if (lastname) employee.lastname = lastname
 
-  const filteredEmployees = employeesDB.employees.filter(emp => emp.id!==employeeID); // filter out employee
-  const allEmployees = [...filteredEmployees, employee]; // add back employee
+  const updatedEmployee = await employee.save()
 
-  const sortedEmployees = allEmployees.sort((a,b) => a.id > b.id ? 1 : a.id < b.id ? -1: 0);
-  employeesDB.setEmployees(sortedEmployees);
-  employeesDB.saveToFile()
-
-  res.status(200).json(employeesDB.employees);
-
+  res.status(200).json(updatedEmployee);
 }
 
 
-const deleteEmployee = (req, res)=>{
-  const employeeID =  parseInt(req.body.id);
-  const employee =  employeesDB.employees.find(emp => emp.id=== employeeID);
+const deleteEmployee = async (req, res)=>{
+  if(!req?.body?.id) return res.status(400).json({"message": "Employee ID is required."});
+
+  const employeeID = req?.body?.id;
+  console.log(`Employee ID is ${employeeID}.`) //TODO: remove
+
+  const employee =  await Employee.findOne({_id: employeeID}).exec();
 
   if(!employee){
-    return res.status(400).json({"message": `Employee with ${employeeID} was not found`});
+    return res.status(204).json({"message": `No employee with ${employeeID} found.`});
   }
 
-  const filteredEmployees = data.employees.filter(emp => emp.id!==employeeID); // filter out employee
-  employeesDB.setEmployees(filteredEmployees);
-  employeesDB.saveToFile()
-  res.status(200).json(data.employees);
+  const result = await employee.deleteOne({_id: employeeID});
+  res.json(result);
 }
 
 

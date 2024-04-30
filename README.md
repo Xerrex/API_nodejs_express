@@ -1,11 +1,110 @@
-# Node Snack
-* Repo for my learning nodejs
+# API_nodejs_express
+* An API to perform create, read, update and delete operations on users & employees
 
 ## Tools & Resources
 - [Node.js v18.19.0 documentation](https://nodejs.org/docs/latest-v18.x/api/index.html)
+- [Express](https://expressjs.com/)
 - [npm Docs](https://docs.npmjs.com/)
 - [mongoose](https://mongoosejs.com/)
+- [Docker & Docker-Compose](https://www.docker.com/)
+- [MongoDB](https://www.mongodb.com/)
 
+## Table of Contents
+- [Available routes](#available-routes)
+- [Notes](#notes)
+- [Project local setup](#project-local-setup)
+
+
+## Available routes:
+### User sign up
+* Endpoint: /auth/signup
+* Method: POST
+* Auth: Bearer token
+* Request body (json)
+```json
+{
+  "username": "Alex Dev",
+  "password": "Devpassword"
+}
+```
+---
+
+### User Sign In
+* Endpoint: /auth/signin
+* Method: POST
+* Auth: Bearer token
+* Request body (json)
+```json
+{
+  "username": "Alex Dev",
+  "password": "Devpassword"
+}
+```
+---
+
+### User Sign out
+* Endpoint: /auth/signout
+* Method: GET
+---
+
+### Handle Refresh token
+* Endpoint: /auth/refresh
+* Method: GET
+* Auth: Bearer token
+---
+
+
+### Get Employees
+* Endpoint: /employees
+* Method: GET
+* Auth: Bearer token
+---
+
+### Get Employee
+* Endpoint: /employees/:id
+* Method: GET
+* Auth: Bearer token
+---
+
+### Add Employee
+* Endpoint: /employees
+* Method: POST
+* Auth: Bearer token
+* Request body (json)
+```json
+{
+  "firstname": "Alex",
+  "lastname": "Dev"
+}
+```
+---
+
+### Update Employee
+* Endpoint: /employees
+* Method: PUT
+* Auth: Bearer token
+* Request body (json)
+```json
+{
+  "id": "66308d73220f640870663ab1",
+  "firstname": "Alex",
+  "lastname": "DevUpdated"
+}
+```
+---
+
+### Delete Employee
+* Endpoint: /employees
+* Method: DELETE
+* Auth: Bearer token
+* Request body (json)
+```json
+{"id":"66308d73220f640870663ab1"}
+```
+
+
+## Project local setup
+* Coming soon
 
 ## Notes
 ### Generate token secrets

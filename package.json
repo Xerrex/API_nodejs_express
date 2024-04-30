@@ -1,7 +1,7 @@
 {
-  "name": "06tut-express",
+  "name": "api-nodejs-express",
   "version": "1.0.0",
-  "description": "express learning",
+  "description": "API to perform create, read, update and delete operations on users & employees",
   "main": "server.js",
   "scripts": {
     "start": "node server",

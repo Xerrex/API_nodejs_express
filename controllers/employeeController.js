@@ -13,13 +13,18 @@ const getEmployee = async (req, res)=>{
   if(!req?.params?.id) return res.status(400).json({"message": "Employee ID is required."});
 
   const employeeID = req.params.id;
-  const employee =  await Employee.findOne({_id: employeeID}).exec();
 
-  if(!employee){
-    return res.status(400).json({"message": `Employee with ${employeeID} was not found.`});
+  try{
+    const employee =  await Employee.findOne({_id: employeeID}).exec();
+
+    if(!employee){
+      return res.status(400).json({"message": `Employee with ${employeeID} was not found.`});
+    }
+    res.status(200).json(employee);
+
+  } catch(error){
+    console.log(error);
   }
-
-  res.status(200).json(employee);
 }
 
 

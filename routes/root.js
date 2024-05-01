@@ -24,7 +24,7 @@ router.get("/old-page(.html)?", (req, res)=>{
 
 
 router.get("/hello-world", (req, res, next)=>{
-  console.log("Attempted to load hello world");
+  // console.log("Attempted to load hello world");
   next()
 }, (req, res)=>{
   res.send("Hello World");

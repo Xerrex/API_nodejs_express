@@ -28,7 +28,7 @@ const handleSignUp = async (req, res)=>{
       "password":hashedPassword
     });
 
-    console.log(createdUser);
+    // console.log(createdUser); // TODO: remove
     res.status(201).json({ "message":`User "${username}" was registered successfully` })
     
   } catch (error) {
@@ -64,12 +64,12 @@ const handleSignIn = async (req, res)=>{
     // Update user's refreshToken
     foundUser.refreshToken = refreshToken;
     const updatedUser = await foundUser.save();
-    console.log(updatedUser); //TODO: Remove Updated User
+    // console.log(updatedUser); //TODO: remove
 
 
     // NOTE: Remove secure: true when working in dev environment
-    // res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000}); // HTTPS
-    res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000});
+    // res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000}); //TODO: use with HTTPS or in Production
+    res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000}); // TODO: use with HTTP or in Development
     res.json({accessToken})
 
   } else{
@@ -83,7 +83,7 @@ const handleRefreshToken = async (req, res) =>{
   if (!cookies?.jwt) return res.sendStatus(401);
   
   const refreshToken = cookies.jwt;
-  console.log(refreshToken);
+  // console.log(refreshToken); // TODO: Remove
   
   const foundUser = await User.findOne({refreshToken: refreshToken}).exec();
 
@@ -100,7 +100,7 @@ const handleRefreshToken = async (req, res) =>{
         "roles": roles
       }
     }
-    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "1d"});
+    const accessToken = jwt.sign(accessTokenPayload, ACCESS_TOKEN_SECRET, {expiresIn: "60s"});
 
     res.json({accessToken});
   });
@@ -113,10 +113,10 @@ const handleSignOut = async (req, res)=>{
   if (!cookies?.jwt) return res.sendStatus(204);
 
   const refreshToken = cookies.jwt;
-  console.log(refreshToken);
+  // console.log(refreshToken); //TODO: remove
   
   const foundUser = await User.findOne({refreshToken: refreshToken}).exec();
-  console.log(foundUser); //TODO: Remove
+  // console.log(foundUser); //TODO: Remove
 
   if (!foundUser) {
     res.clearCookie("jwt", {httpOnly: true})
@@ -126,7 +126,7 @@ const handleSignOut = async (req, res)=>{
   // Update user's refreshToken
   foundUser.refreshToken = "";
   const updatedUser = await foundUser.save();
-  console.log(updatedUser); //TODO: Remove Updated User
+  // console.log(updatedUser); //TODO: Remove
 
   res.clearCookie("jwt", {httpOnly: true, sameSite: "None", secure: true}); // NOTE: Secure:true -only serves on https
   res.sendStatus(204);
